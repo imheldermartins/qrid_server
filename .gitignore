@@ -4,10 +4,10 @@
 
 venv/
 
-# Ignore all content inside migrations
-migrations/*
+# Ignorar tudo dentro de qualquer pasta "migrations" em qualquer app
+**/migrations/*
 
-# But includes init module
-!migrations/__init__.py
+# Exceto o arquivo __init__.py de cada pasta "migrations"
+!**/migrations/__init__.py
 
 config/db.sqlite3
