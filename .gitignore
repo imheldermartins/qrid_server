@@ -3,3 +3,11 @@
 .vscode
 
 venv/
+
+# Ignore all content inside migrations
+migrations/*
+
+# But includes init module
+!migrations/__init__.py
+
+config/db.sqlite3

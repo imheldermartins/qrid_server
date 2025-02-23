@@ -1,0 +1,22 @@
+<h1 style="text-align:center;">Serviços que nós prestamos</h1>
+
+<table style="width:80%;margin:0 auto;border-collapse: collapse;">
+    <thead>
+        <tr>
+            <th style="padding:10px;border:1px solid #ddd;border-radius:5px;">Título</th>
+            <th style="padding:10px;border:1px solid #ddd;border-radius:5px;width:25%;">Descrição</th>
+            <th style="padding:10px;border:1px solid #ddd;border-radius:5px;">Data de Criação</th>
+            <th style="padding:10px;border:1px solid #ddd;border-radius:5px;">Data de Atualização</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for service in services %}
+            <tr>
+                <td style="padding:10px;border:1px solid #ddd;border-radius:5px;vertical-align: top;">{{ service.title }}</td>
+                <td style="padding:10px;border:1px solid #ddd;border-radius:5px;width:25%;vertical-align: top;">{{ service.description }}</td>
+                <td style="padding:10px;border:1px solid #ddd;border-radius:5px;vertical-align: top;">{{ service.created_at }}</td>
+                <td style="padding:10px;border:1px solid #ddd;border-radius:5px;vertical-align: top;">{{ service.updated_at }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
