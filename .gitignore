@@ -10,4 +10,7 @@ venv/
 # Exceto o arquivo __init__.py de cada pasta "migrations"
 !**/migrations/__init__.py
 
+
+*/__pycache__/
+
 config/db.sqlite3
