@@ -6,5 +6,5 @@ class Service(models.Model):
     description = models.CharField(max_length=100)
     price = models.FloatField(default=0, null=False)
     rated = models.IntegerField(null=True)
-    created_at = models.DateTimeField(auto_now_add=True, null=False, blank=False)
+    created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

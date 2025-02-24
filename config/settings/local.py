@@ -15,10 +15,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env("DEBUG", cast=bool, default=False)
+DEBUG = env("DEBUG", default=False, cast=bool)
 
 ALLOWED_HOSTS = env("ALLOWED_HOSTS", cast=Csv())
-
 
 # Application definition
 
@@ -29,6 +28,10 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    # API resources
+    "rest_framework",
+    "corsheaders",
+    # Apps
     "services.apps.ServicesConfig",
 ]
 
@@ -40,6 +43,8 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.common.CommonMiddleware",
 ]
 
 ROOT_URLCONF = "config.urls"
@@ -91,15 +96,24 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-PASSWORD_HASHERS = (
+# PASSWORD_HASHERS = (
+#     "django.contrib.auth.hashers.BCryptSHA256PasswordHasher",
+#     "django.contrib.auth.hashers.BCryptPasswordHasher",
+#     "django.contrib.auth.hashers.PBKDF2PasswordHasher",
+#     "django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher",
+#     # "django.contrib.auth.hashers.SHA1PasswordHasher",
+#     # "django.contrib.auth.hashers.BasePasswordHasher",
+#     "django.contrib.auth.hashers.MD5PasswordHasher",
+#     "django.contrib.auth.hashers.CryptPasswordHasher",
+# )
+
+PASSWORD_HASHERS = [
     "django.contrib.auth.hashers.BCryptSHA256PasswordHasher",
     "django.contrib.auth.hashers.BCryptPasswordHasher",
     "django.contrib.auth.hashers.PBKDF2PasswordHasher",
     "django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher",
-    "django.contrib.auth.hashers.SHA1PasswordHasher",
-    "django.contrib.auth.hashers.MD5PasswordHasher",
-    "django.contrib.auth.hashers.CryptPasswordHasher",
-)
+    "django.contrib.auth.hashers.Argon2PasswordHasher",
+]
 
 
 # Internationalization
@@ -125,3 +139,12 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+# CORS_ALLOWED_ORIGINS = [
+#     "https://example.com",
+#     "https://sub.example.com",
+#     "http://localhost:8080",
+#     "http://127.0.0.1:9000",
+# ]
+CORS_ALLOWED_ORIGINS = env("CORS_ALLOWED_ORIGINS", cast=Csv())
