@@ -21,3 +21,4 @@ class TransactionDetailView(generics.RetrieveAPIView):
 
     queryset = Transaction.objects.all()
     serializer_class = TransactionSerializer
+    lookup_field = "id"
