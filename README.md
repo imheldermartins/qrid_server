@@ -67,7 +67,7 @@ EXPOSE ${PORT}
 
 ```sh
 # Build image for contâiner
-docker build --no-cache -t senior-server:latest .
+docker build --no-cache -t project-server:latest .
 
 # Create contâiner and run with enviroments variables - Production
 docker run -p 8000:8080 \
@@ -78,6 +78,6 @@ docker run -p 8000:8080 \
 --env DB_USER_PW=. \
 --env DB_HOST=0.0.0.0 \
 --env DB_PORT=5432 \
-senior-server
+project-server
 ```
 

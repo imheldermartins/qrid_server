@@ -2,8 +2,6 @@ from pathlib import Path
 
 from decouple import config as env, Csv
 
-from dj_database_url import parse as db_url
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -32,7 +30,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "corsheaders",
     # Apps
-    "services.apps.ServicesConfig",
+    "transactions.apps.TransactionsConfig",
 ]
 
 MIDDLEWARE = [
@@ -67,15 +65,45 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "config.wsgi.application"
 
-
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+DB_NAME = env("DB_NAME")
+DB_USER = env("DB_USER_NM")
+DB_PSWD = env("DB_USER_PW")
+DB_HOST = env("DB_HOST")
+DB_PORT = env("DB_PORT")
+
+# postgresql://[user[:password]@][netloc][:port][/dbname][?param1=value1&...]
+
+# DATABASES = {
+#     "default": env(
+#         "DATABASE_URL",
+#         default=f"postgresql:///{DB_USER_NM}:{DB_USER_PW}@{DB_HOST}:{DB_PORT}/{DB_NAME}",
+#         cast=db_url,
+#     )
+# }
 DATABASES = {
-    "default": env(
-        "DATABASE_URL", default=f'sqlite:///{BASE_DIR / "db.sqlite3"}', cast=db_url
-    )
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": DB_NAME,
+        "USER": DB_USER,
+        "PASSWORD": DB_PSWD,
+        "HOST": DB_HOST,
+        "PORT": DB_PORT,
+    }
 }
+
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql",
+#         "NAME": DB_NAME,
+#         "USER": DB_USER_NM,
+#         "PASSWORD": DB_USER_PW,
+#         "HOST": DB_HOST,
+#         "PORT": DB_PORT,
+#     }
+# }
 
 
 # Password validation

@@ -19,13 +19,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
-from config.settings import get_secret
+from decouple import config as env, Csv
+from dj_database_url import parse as db_url
 
-SECRET_KEY = get_secret("SECRET_KEY")
+# from config.settings import get_secret
 
-DEBUG = False
+# SECRET_KEY = get_secret("SECRET_KEY")
+SECRET_KEY = env("SECRET_KEY")
 
-ALLOWED_HOSTS = ["*"]
+DEBUG = env("DEBUG", default=False, cast=bool)
+
+ALLOWED_HOSTS = env("ALLOWED_HOSTS", cast=Csv())
 
 
 # Application definition
@@ -37,6 +41,11 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    # API resources
+    "rest_framework",
+    "corsheaders",
+    # Apps
+    "transactions.apps.TransactionsConfig",
 ]
 
 MIDDLEWARE = [
@@ -47,6 +56,8 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.common.CommonMiddleware",
 ]
 
 ROOT_URLCONF = "config.urls"
@@ -73,18 +84,18 @@ WSGI_APPLICATION = "config.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-DB_NAME = get_secret("DB_NAME")
-DB_USER_NM = get_secret("DB_USER_NM")
-DB_USER_PW = get_secret("DB_USER_PW")
-DB_HOST = get_secret("DB_HOST")
-DB_PORT = get_secret("DB_PORT")
+DB_NAME = env("DB_NAME")
+DB_USER = env("DB_USER_NM")
+DB_PSWD = env("DB_USER_PW")
+DB_HOST = env("DB_HOST")
+DB_PORT = env("DB_PORT")
 
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": DB_NAME,
-        "USER": DB_USER_NM,
-        "PASSWORD": DB_USER_PW,
+        "USER": DB_USER,
+        "PASSWORD": DB_PSWD,
         "HOST": DB_HOST,
         "PORT": DB_PORT,
     }
@@ -113,9 +124,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "pt-br"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "America/Sao_Paulo"
 
 USE_I18N = True
 
@@ -131,3 +142,5 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+CORS_ALLOWED_ORIGINS = env("CORS_ALLOWED_ORIGINS", cast=Csv())
