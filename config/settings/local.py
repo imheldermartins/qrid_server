@@ -2,6 +2,8 @@ from pathlib import Path
 
 from decouple import config as env, Csv
 
+from datetime import timedelta
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -31,6 +33,8 @@ INSTALLED_APPS = [
     "transactions.apps.TransactionsConfig",
 ]
 
+AUTH_USER_MODEL = "accounts.User"
+
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -47,6 +51,14 @@ REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     )
+}
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=15),  # Antes: 2 min, agora 15 min
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),  # O refresh dura 7 dias
+    "ROTATE_REFRESH_TOKENS": True,  # Gera um novo refresh quando usado
+    "BLACKLIST_AFTER_ROTATION": True,  # Evita reuso do refresh antigo
+    "AUTH_HEADER_TYPES": ("Bearer",),
 }
 
 ROOT_URLCONF = "config.urls"
