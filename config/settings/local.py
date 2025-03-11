@@ -13,7 +13,8 @@ SECRET_KEY = env("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env("DEBUG", default=False, cast=bool)
 
-ALLOWED_HOSTS = env("ALLOWED_HOSTS", cast=Csv())
+# ALLOWED_HOSTS = env("ALLOWED_HOSTS", cast=Csv())
+ALLOWED_HOSTS = ["*"]
 
 # Application definition
 
@@ -191,4 +192,5 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 #     "http://localhost:8080",
 #     "http://127.0.0.1:9000",
 # ]
-CORS_ALLOWED_ORIGINS = env("CORS_ALLOWED_ORIGINS", cast=Csv())
+# CORS_ALLOWED_ORIGINS = env("CORS_ALLOWED_ORIGINS", cast=Csv())
+CORS_ALLOW_ALL_ORIGINS = True
