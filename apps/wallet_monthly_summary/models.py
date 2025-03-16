@@ -9,7 +9,7 @@ class WalletMonthlySummary(models.Model):
     total_expenses = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
     total_transactions = models.IntegerField(default=0)
 
-    wallet_id = models.ForeignKey("wallets.Wallet", on_delete=models.CASCADE)
+    wallet = models.ForeignKey("wallets.Wallet", on_delete=models.CASCADE)
 
     class Meta:
         unique_together = ("month", "year", "wallet_id")

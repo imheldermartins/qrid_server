@@ -44,32 +44,30 @@ class TransactionCreateView(generics.CreateAPIView):
 
     @transaction.atomic
     def perform_create(self, serializer):
-        # Get wallet_id, month and year from request data
+        # Obtendo os dados do request
         wallet_id = self.request.data.get("wallet_id")
         scheduled_date = self.request.data.get("scheduled_date")
 
         if not wallet_id or not scheduled_date:
             raise serializers.ValidationError(
-                "wallet_id and scheduled_date are required fields"
+                "wallet_id and scheduled_date são campos obrigatórios"
             )
 
         year, month, _ = map(int, scheduled_date.split("-"))
 
-        # Get wallet object
+        # Obtendo a Wallet
         wallet = get_object_or_404(Wallet, id=wallet_id)
 
-        print(wallet)
-
+        # Criando ou obtendo a WalletMonthlySummary
         wms, created = WalletMonthlySummary.objects.get_or_create(
             wallet=wallet,
             month=month,
             year=year,
         )
 
+        # Criando a transação com a WalletMonthlySummary correta
         serializer.save(
-            wallet=wms,
-            account=self.request.user,
+            wallet_monthly=wms,
             scheduled_date=scheduled_date,
             owner=self.request.user,
         )
-        return super().perform_create(serializer)

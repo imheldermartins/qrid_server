@@ -23,10 +23,10 @@ class Transaction(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, null=False)
     updated_at = models.DateTimeField(auto_now=True, null=False)
 
-    category_id = models.ForeignKey(
+    category = models.ForeignKey(
         "categories.Category", on_delete=models.CASCADE, null=False
     )
-    wallet_monthly_id = models.ForeignKey(
+    wallet_monthly = models.ForeignKey(
         "wallet_monthly_summary.WalletMonthlySummary",
         on_delete=models.CASCADE,
         null=False,
