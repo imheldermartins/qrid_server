@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import TransactionListView, TransactionDetailView
+from .views import TransactionCreateView, TransactionListView, TransactionDetailView
 
 urlpatterns = [
     path(
@@ -7,5 +7,8 @@ urlpatterns = [
     ),  # /api/transactions/
     path(
         "<int:id>/", TransactionDetailView.as_view(), name="transaction-detail"
-    ),  # /api/transactions/:id
+    ),  # /api/transactions/:id/
+    path(
+        "create/", TransactionCreateView.as_view(), name="transaction-create"
+    ),  # /api/transactions/create/
 ]

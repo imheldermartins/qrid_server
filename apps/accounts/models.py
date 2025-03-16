@@ -26,37 +26,20 @@ class CustomUserManager(UserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-
-    ROLE_ADMIN = "admin"
-    ROLE_USER = "user"
-
-    ROLE_CHOICES = [
-        (ROLE_ADMIN, "Admin"),
-        (ROLE_USER, "User"),
-    ]
-
     email = models.EmailField(unique=True)
     first_name = models.CharField(max_length=30)
-    last_name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=30, blank=True)
     password = models.CharField(max_length=128)
-    role = models.CharField(max_length=10, choices=ROLE_CHOICES, default=ROLE_USER)
-
-    balance = models.DecimalField(max_digits=10, default=0.00, decimal_places=2)
     tags = models.JSONField(default=list, blank=True)
-
-    # Cache fields
-    total_transactions = models.IntegerField(default=0)
-    total_income = models.DecimalField(max_digits=10, default=0.00, decimal_places=2)
-    total_expense = models.DecimalField(max_digits=10, default=0.00, decimal_places=2)
-
-    is_staff = models.BooleanField(default=False)
+    created_at = models.DateTimeField(default=timezone.now)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_business = models.BooleanField(default=False, blank=True)
     is_active = models.BooleanField(default=True)
-    date_joined = models.DateTimeField(default=timezone.now)
 
     objects = CustomUserManager()
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = ["first_name", "last_name"]
+    REQUIRED_FIELDS = ["first_name"]
 
     class Meta:
         verbose_name = "User"

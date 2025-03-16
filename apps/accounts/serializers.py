@@ -5,9 +5,9 @@ from .models import User
 
 class AccountSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, required=True)
-    role = serializers.ChoiceField(
-        choices=User.ROLE_CHOICES, required=False, default=User.ROLE_USER
-    )
+    # role = serializers.ChoiceField(
+    #     choices=User.ROLE_CHOICES, required=False, default=User.ROLE_USER
+    # )
 
     class Meta:
         model = User
@@ -16,13 +16,11 @@ class AccountSerializer(serializers.ModelSerializer):
             "first_name",
             "last_name",
             "password",
-            "role",
-            "balance",
             "tags",
-            "total_transactions",
-            "total_expense",
-            "total_income",
-            "date_joined",
+            "created_at",
+            "updated_at",
+            "is_business",
+            "is_active",
         ]
 
     def create(self, validated_data):

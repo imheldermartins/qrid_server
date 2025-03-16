@@ -13,8 +13,7 @@ SECRET_KEY = env("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env("DEBUG", default=False, cast=bool)
 
-# ALLOWED_HOSTS = env("ALLOWED_HOSTS", cast=Csv())
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = env("ALLOWED_HOSTS", cast=Csv())
 
 # Application definition
 
@@ -29,9 +28,13 @@ INSTALLED_APPS = [
     "rest_framework",
     "corsheaders",
     "rest_framework_simplejwt",
+    "rest_framework_simplejwt.token_blacklist",
     # Apps
-    "accounts.apps.AccountsConfig",
-    "transactions.apps.TransactionsConfig",
+    "apps.accounts.apps.AccountsConfig",
+    "apps.transactions.apps.TransactionsConfig",
+    "apps.categories.apps.CategoriesConfig",
+    "apps.wallets.apps.WalletsConfig",
+    "apps.wallet_monthly_summary.apps.WalletMonthlySummaryConfig",
 ]
 
 AUTH_USER_MODEL = "accounts.User"
@@ -192,5 +195,5 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 #     "http://localhost:8080",
 #     "http://127.0.0.1:9000",
 # ]
-# CORS_ALLOWED_ORIGINS = env("CORS_ALLOWED_ORIGINS", cast=Csv())
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOWED_ORIGINS = env("CORS_ALLOWED_ORIGINS", cast=Csv())
+# CORS_ALLOW_ALL_ORIGINS = True
