@@ -11,6 +11,6 @@ venv/
 !**/migrations/__init__.py
 
 
-*/__pycache__/
+apps/*/__pycache__/
 
 config/db.sqlite3

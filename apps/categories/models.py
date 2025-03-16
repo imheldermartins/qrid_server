@@ -2,7 +2,9 @@ from django.db import models
 
 
 class Category(models.Model):
-    TYPE = (("income", "INCOME"), ("expense", "EXPENSE"))
+    INCOME = "income"
+    EXPENSE = "expense"
+    TYPE = ((INCOME, "INCOME"), (EXPENSE, "EXPENSE"))
 
     name = models.CharField(max_length=255)
     color = models.CharField(max_length=255, default="grey")

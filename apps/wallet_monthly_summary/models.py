@@ -7,7 +7,6 @@ class WalletMonthlySummary(models.Model):
     total_balance = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
     total_incomes = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
     total_expenses = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
-    total_transactions = models.IntegerField(default=0)
 
     wallet = models.ForeignKey("wallets.Wallet", on_delete=models.CASCADE)
 

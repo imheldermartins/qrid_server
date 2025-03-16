@@ -18,7 +18,9 @@ class Transaction(models.Model):
     payment_method = models.CharField(
         blank=False, choices=PAYMENT_METHODS, default="CASH", max_length=20
     )
-    amount = models.FloatField(default=0, null=False, blank=False)
+    amount = models.DecimalField(
+        max_digits=10, decimal_places=2, default=0.0, blank=False
+    )
     scheduled_date = models.DateField(null=False, blank=False, default=None)
     created_at = models.DateTimeField(auto_now_add=True, null=False)
     updated_at = models.DateTimeField(auto_now=True, null=False)
