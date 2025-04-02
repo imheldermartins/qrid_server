@@ -16,3 +16,15 @@ class WalletCreateView(generics.CreateAPIView):
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
+
+
+class WalletListView(generics.ListAPIView):
+    """(GET)
+    List all wallets of the authenticated user.
+    """
+
+    permission_classes = (IsAuthenticated,)
+    serializer_class = WalletSerializer
+
+    def get_queryset(self):
+        return Wallet.objects.filter(owner=self.request.user)

@@ -1,14 +1,7 @@
 from django.urls import path
-from .views import WalletCreateView
+from .views import WalletCreateView, WalletListView
 
 urlpatterns = [
-    # path(
-    #     "", TransactionListView.as_view(), name="transactions-list"
-    # ),  # /api/transactions/
-    # path(
-    #     "<int:id>/", TransactionDetailView.as_view(), name="transaction-detail"
-    # ),  # /api/transactions/:id/
-    path(
-        "create/", WalletCreateView.as_view(), name="wallet-create"
-    ),  # /api/transactions/create/
+    path("", WalletListView.as_view(), name="wallet-list"),
+    path("create/", WalletCreateView.as_view(), name="wallet-create"),
 ]

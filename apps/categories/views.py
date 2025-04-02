@@ -22,3 +22,17 @@ class CategoryCreateView(generics.CreateAPIView):
     def get_queryset(self):
         # Retorna apenas as categorias do usuário autenticado
         return Category.objects.filter(owner=self.request.user)
+
+
+class CategoryListView(generics.ListAPIView):
+    """(GET)
+    List all categories from the authenticated user.
+    """
+
+    permission_classes = (IsAuthenticated,)
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+
+    def get_queryset(self):
+        # Retorna apenas as categorias do usuário autenticado
+        return Category.objects.filter(owner=self.request.user)
